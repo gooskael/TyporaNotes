@@ -1,0 +1,390 @@
+[TOC]
+
+### 0.vue和html文件在代码上的不同
+
+> 1. html的主体最外层为html,其次head、body，script部分包含在body内，并放在body末尾好
+> 2. vue的主体是template
+
+```html
+<!-- html的主体最外层为html,其次head、body -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>check-div-el-1</title>
+</head>
+
+<body>
+    <div id="app" class="appC" @click = "changeFor1">
+        {{ message }}
+        <span> {{ message }}</span> 
+        <li> {{ check }} </li>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./check-dive-el.js"></script>
+</body>
+
+</html>
+```
+
+```vue
+<!-- vue的主体是template和script两部分 -->
+<template>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+```
+
+----------------
+
+### 1.关于vue：vscode插件 & chrome插件
+
+为了方便开发，使用vscode，引入三个插件：
+
+1. open in browser: 提供在浏览器打开
+2. Live Server: 提供实时的浏览器更新，只要代码保存，浏览器就会实时变化
+3. vue
+4. Vuter（项目构建可能需要这个库）
+
+**需要注意的是，在安装了Live Server插件之后，想要使用需要在vscode中打开整个项目文件包，如果只打开其中一个.vue文件是不能使用的。具体的使用只要在相应的代码中 「鼠标右键」> 「“open with live server”」即可。**
+
+此外，在chrome上通过google的应用商店安装插件vue.js devtools：
+
+![](./images/vue.js devtool.png)
+
+-------------------
+
+### 2.vue的引用
+
+Vue的官方文档中提供了两种版本提供友好开发，目前以开发版本为主。
+
+[vue官方文档](https://cn.vuejs.org/v2/guide/installation.html)
+
+1. 下载到本地作为本地文件引入
+
+   ```html
+   <body>
+     <script src="./vue.js" type="text/javascript" charset="utf-8"></script>
+   </body>
+   ```
+
+2. 直接CDN引入
+
+   > CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。
+
+   ```html
+   <body>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   </body>
+   //直接利用CDN，不需要下载到本地
+   ```
+
+​	vue的引用、java的import很重要的概念是：引用一份文件，只是拷贝到本地。定义在另一个a.js文件内的内容，在b.html引用的时候，将a.js的内容拷贝到b.html上（相当于粘贴到b.html的代码后面）；在c.html引用的时候，拷贝到c.html上。因此同样对a.js里面定义的数据进行操作的时候，并不会共享同一个内容，而是分别操作拷贝到本地的数据。
+
+```js
+<!-- 在a.js中定义了 script的内容，之后给共享 -->
+var Forapp = new Vue({
+    el:"#app", 
+    data:{
+        message:"  测试测试 ！ ",
+        check:" 这是check1的 ",
+    },
+    methods:{
+        changeFor1:function(){
+            this.check = "数据被第一个窗口改变了！";
+        },
+        changeFor2:function(){
+            this.check = "我也来改变试一下！";
+        }
+    }
+})
+```
+
+```html
+<!-- 在b.html -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>check-div-el-1</title>
+</head>
+
+<body>
+    <div id="app" class="appC" @click = "changeFor1">
+        {{ message }}
+        <span> {{ message }}</span> 
+        <li> {{ check }} </li>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./check-dive-el.js"></script>
+</body>
+
+</html>
+```
+
+```html
+<!-- 在c.html -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>check-div-el-2</title>
+</head>
+
+<body>
+    <div id="app" class="appC" @click = "changeFor2">
+        {{ message }}
+        <span> {{ message }}</span> 
+        <li> {{check }} </li>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./check-dive-el.js"></script>
+</body>
+
+</html>
+```
+
+上面b.html和c.html都通过changeFor函数对message进行了数据的改变，但是实际上b.html和c.html所改变的message并不是同一个message，可以看作，b.html改变的是拷贝过来的message形成的message_b；c.html改变的是拷贝过来的message形成的message_c。这就是import引用的内核。
+
+​	再见下图：
+
+​	![](./images/引入数据流.png)
+
+​	各自写入自己的html文件中，相当于下载到本地，对自己下载下来的本地文件进行操作，**并不会对引入的源文件的数据进行改变**。也就是“引入”的概念就是把目标文件的代码在运行的时候接入自己的代码中，**所接入的代码的数据的域，为本地**。因此两个不同文件引入同一个js文件的时候，二者的数据并没有联系。唯一的相同之处是所有的数据名、函数名以及初始值是一样的。
+
+​	结果像下面的图所示，在改变是不会影响另一个引入相同js文件的html文件。
+
+​	![](./images/引入结果测试1.png)
+
+​	![](./images/引入结果测试2.png)
+
+​	因此，定义在js文件里面，可以提高复用的效率，但是在复用的时候，大家只是拷贝一份代码到本文件中。
+
+--------------------
+
+### 3.数据data和挂载点el
+
+> el = element link ?
+
+> 在.js文件中定义，或者直接在html中通过<script>直接引入。
+>
+> ```html
+> <!-- 挂载点el可以用三种方式进行管理，只要选择其中一种即可 -->
+> <script>
+> 	var forApp = new Vue({
+>     el:"#app", //id选择器（建议使用），锁定管理id="app"的组件，用#管理
+>     el:".app", //类选择器，容易因为类别同名而造成混乱，锁定第一个class="app"的组件，用.管理
+>     el:"div", //组件选择器，锁定第一个div组件
+>     
+>     data:{
+>       message:{
+>         
+>       },
+>       content:{
+>         
+>       }
+>     },
+>     //methods可以扩展写，也可以省略写，但尽量统一写法
+>     methods:{
+>       doIt:function(){
+>         //:function不省略
+>         this.message = "doIt"; //this指示上面data里面的message
+>       },
+>       doItH(p1, p2){
+>         //:function直接省略
+>       }
+>     }
+>   })
+> </script>
+> ```
+
+--------------
+
+### 4.v-text v-html v-on
+
+> v-text和v-html有联系点，具体见「vue问题汇总.md」中的问题。
+>
+> v-on是重点。
+
+#### 1. v-text
+
+> **v-text绑定的内容优先级更高，原本布局元素的内容优先级低而显示不出来**
+>
+> ```html
+> <h2 v-text="message + '???'">
+>   这是测试优先级部分文字
+> </h2>
+> <!-- 在data中定义的message为： -->
+> data:{
+> 	message:" v-text look !",
+> }
+> ```
+>
+> ```js
+> //最终显示的效果为：
+> v-text look !???
+> //h2内容的文字都被覆盖无法显示
+> ```
+
+> **假如想要数据的渲染+原本组件的内容都显示，不使用v-text即可**
+>
+> ```html
+> <h2>测试{{ message + "???"}}</h2>
+> ```
+>
+> ```js
+> //最终显示的效果为：
+> 测试 v-text look !???
+> ```
+
+******
+
+#### 2. v-html
+
+> v-html会将元素当成HTML标签解析后输出。也就是对文本的内容先进行html解析，再输出。
+
+**详见"./vue问题汇总" > 「1：v-text和v-html区别」**
+
+#### 3. v-on / @
+
+> 用于绑定事件，事件的描述函数在methods里面实现。
+
+> ```html
+> //v-on:click=""可以缩写成@click=""
+> <input type="button" value="click" v-on:click="doIt">
+> <input type="button" value="click" @click="doIt">
+> ```
+
+> 关于v-on的四个常用绑定事件
+>
+> ```html
+> <input type="button" value="singleClick" @click="doIt"> //单击触发
+> <input type="button" value="doubleClick" @dbclick="doIt"> //双击触发
+> <input type="button" value="mouseEnter" @mouseenter="doIt"> //鼠标碰到就会触发
+> <input type="button" value="keyupSpecific" @keyup.enter="doIt"> //按键抬起响应，.限定某个键--space空格、keyup.u对应「u」按键的抬起
+> ```
+
+------------------
+
+### 5.v-show v-if
+
+> v-show实际上是控制样式，将该元素的display值改变从而隐藏，但是**dom元素仍然在**，只是不显示。
+>
+> v-if实际上是控制dom元素，**当false，dom元素直接移除**，当true，dom元素添加。
+>
+> 但是二者在false的时候，视觉效果是完全一样的。
+
+> 在具体想要切换「显示」和「隐藏」两种状态的时候。可以通过绑定一个data的数据，然后在method中实现布尔值的切换。
+>
+> ```html
+> //用一个按钮来改变布尔值
+> <input type="button" value="change status" @click="changeStatus">
+> <img v-show="orShow" src="./image.png">
+> 
+> //在script中定义data和method
+> <script>
+> 	var app = new Vue({
+>     el:"#app",
+>     data:{
+>       orShow: false,
+>     },
+>     methods:{
+>       changeStatus(){
+>         this.orShow = !this.orShow;
+>       }
+>     }
+>   })
+> </script>
+> ```
+
+------------------
+
+### 6.v-bind / :
+
+> 一般参数都是固定数值，可以通过v-bind绑定一个变参。这样可以在data中初始赋值，当需要修改值的时候，直接在method中修改。这里的v-bind可以看作单向的绑定，监听data的变化，但是自身不会去改变该数据，只会获取该数据。
+
+> v-bind可以进行缩写
+>
+> ```html
+> <img v-bind:src="imgSrc" alt=""> //imgSrc可以在data和method中改变
+> <img :src="imgSrc" alt="">
+> ```
+
+#### 三元表达式 & 对象表达式
+
+> ```html
+> //首先定义两个style用来理解这两种表达式
+> <style>
+>   .active{
+>     border: 1px solid green; //定义active为1px的绿色边框
+>   }
+>   .mofang{
+>     border: 1px solid red; //定义mofang为1px的红色边框
+>   }
+> </style>
+> ```
+
+> 三元表达式
+>
+> ```html
+> <img :src="imgSrc" alt=""
+>      :title="imgTitle"
+>      :class="isActive?'active'"> //如果isActive===true,则class="active";反之,class=""
+> ```
+
+> 对象表达式
+>
+> ```html
+> <img :src="imgSrc" alt=""
+>      :title="imgTitle"
+>      :class="{mofang:isActive}"> //如果isActive===true,则class="active";反之,class=""
+> ```
+
+----------------
+
+### 7.v-for v-model
+
+​		v-for:用来循环作用，(item,index) in arr。v-for的key参考[解决v-for产生的警告的办法](https://www.cnblogs.com/kugeliu/p/6728245.html)
+
+​		v-model:用来双向绑定，如text中的值和data绑定后，两处变化同步，一处变两处变
+
+​		[VUE速成基础](https://docs.qq.com/doc/DTVNwY0hiSWdlZVZv)
+
+### 8.DOM
+
+​		DOM（Document Object Model，文档对象模型）是针对HTML和XML文档的一个API（应用程序编程接口）。DOM描绘了一个层次话的节点树，允许开发人员添加、移除和修改页面的一部分。
+
+​		浏览器获取了文件之后的工作流程，「构建DOM -> 构建CSSOM -> 构建Render Tree -> 布局 -> 绘制」
+
+> 1. 构建DOM：根据HTML/SVG/XHTML等，构建DOM TREE
+> 2. 构建CSSOM：根据CSS构建CSSOM
+> 3. JS/脚本通过DOM API和CSSOM API来操作DOM Tree和CSS Rule Tree
+> 4. 构造Render Tree（渲染树）
+> 5. 布局绘制页面
+
+![Render-Process](./images/Render-Process.png)
+
+​		具体参照「./vue问题汇总：虚拟DOM和真实DOM」
