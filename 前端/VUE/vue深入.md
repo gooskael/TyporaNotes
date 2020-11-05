@@ -2,6 +2,8 @@
 
 ### 0. 关于代码快捷方式
 
+[VSCode的一些小操作(二)——快速生成HTML,CSS代码](https://blog.csdn.net/ycx60rzvvbj/article/details/105775469)
+
 ###### 快速生成vue各板块
 
 ```<vue```之后会弹出```vue with default.vue```，```tab```即可：即会生成
@@ -22,11 +24,42 @@ export default {
 </style>
 ```
 
+###### 快速生成div元素
+
+使用```.className```可以快速生成```<div class="className"></div>```
+
+使用```#idName```可以快速生成```<div id="idName"></div>```
+
 
 
 ### 1. props父子组件的通信以及回调函数
 
 ​	父子组件的通信主要通过两个主体来理解，第一个主体是**子组件**，第二个主体是**父组件**。
+
+###### 父组件如何使用子组件
+
+​	在理解父子组件之间的通信之前，先明白一个定义好了的子组件，父组件是如何使用子组件的大概过程：```import``` => ```components注册``` => ```使用```
+
+```vue
+<script>
+import ChildComponent from "@/components/ChildComponent" //import
+  
+export default {
+  components: {
+    ChildComponent, //conponents注册
+  }
+}
+</script>
+```
+
+```vue
+<template>
+	<div>
+    <ChildComponent> </ChildComponent> //使用
+    <child-component> </child-component> //也可以把驼峰改成小写-小写的方式
+  </div>
+</template>
+```
 
 ###### 子组件得到父组件的数据
 
@@ -67,7 +100,7 @@ export default {
 > </script>
 > ```
 >
-> ​		1.2 父组件首先需要引入子组件，import
+> ​		1.2 父组件首先需要引入子组件，import并注册components
 >
 > ```vue
 > <template>
@@ -76,6 +109,12 @@ export default {
 > 
 > <script>
 > import SonTitle from './components/SonTitle' //此处不用.vue后缀
+>   
+> export default {
+>   components: {
+>     SonTitle,
+>   }
+> }
 > </script>
 > ```
 >
@@ -434,3 +473,4 @@ methods: {
 
  [es6-对象和数组解析](https://juejin.im/post/6844903958104768519)
 
+### 3. vue文件到底怎么运行起来的？

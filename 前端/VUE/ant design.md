@@ -4,6 +4,62 @@
 
 [ant design](antdv.com)
 
+- [x] 学会官方组件库，组件实现的具体方式的查看
+
+> [ant design/Customize Theme](https://antdv.com/docs/vue/customize-theme/)
+>
+> [default variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
+>
+> [ant design/components](https://github.com/vueComponent/ant-design-vue/tree/master/components)
+
+### 如何引入ant design组件？
+
+[vue中使用ant design](https://www.cnblogs.com/psxiao/p/11417697.html)
+
+​	1.打开项目terminal，下载ant design
+
+```shell
+$ npm i --save ant-design-vue
+```
+
+> 在执行了这个命令之后，package.json中会添加相关的依赖"dependencies"
+>
+> 这样如果上传到git之后，git pull完，通过```npm install```就可以下载相关的依赖，包括刚引入的ant-design-vue。
+>
+> 下面无论**全局引入**还是**局部引入**，都需要先下载。
+
+​	2.1选择全局引入
+
+```js
+// 在src/main.js添加
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+
+Vue.use(Antd)
+```
+
+> 全局引入完成后，其他的页面使用的时候就不用进行其他别的操作，直接使用即可。
+>
+> 全局引入的问题是引入了很多你可能不会用上的一些组件，使得整个项目很臃肿。
+
+​	2.2选择部分引入
+
+```js
+// 在src/main.js添加
+import Table from 'ant-design-vue'
+//import {Table, Button} from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+
+Vue.use(Table);
+//Vue.use(Button);
+```
+
+​	2.3按需引入
+
+> 按需引入是在每个页面各自import，而不是在main.js里面管理import。有点麻烦，没必要。
+
+---
+
 ### a-tooltip
 
 ###### ```title```
@@ -261,6 +317,18 @@ Icon.getTwoToneColor(); // #eb2f96
 
 
 ### a-table
+
+###### ```columns``` & ```dataSource```
+
+​		定义表格的标题内容，以及该标题下（这一列）的各个表格元素的数据绑定。
+
+```vue
+<template>
+	<a-table :columns="columns" :data-source="data">
+    <a slot="name" slot-scope="text">{{ text }}</a>
+  </a-table>
+</template>
+```
 
 
 

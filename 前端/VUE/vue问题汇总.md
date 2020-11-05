@@ -27,7 +27,7 @@ message: "<a href='http://localhost:8080'>click check</a>"
 
 ------------------
 
-### 3. v-on:input?
+### 3. v-on: input?
 
 ### 4. v-for的key字段警告
 
@@ -51,7 +51,7 @@ message: "<a href='http://localhost:8080'>click check</a>"
 > 4. 构造Render Tree（渲染树）
 > 5. 布局绘制页面
 
-![Render-Process](/Users/samstephen/Documents/Typora/前端/VUE/images/Render-Process.png)
+![Render-Process](./images/Render-Process.png)
 
 ​				
 
@@ -65,7 +65,7 @@ message: "<a href='http://localhost:8080'>click check</a>"
 > 2. 变化被应用到虚拟 DOM 上时，虚拟DOM并不急着去渲染页面，而仅仅是调整虚拟 DOM 的内部状态，这样操作虚拟DOM的代价就变得非常轻了。
 > 3. 在虚拟 DOM 收集到足够的改变时，再把这些变化一次性应用到真实的 DOM 上。
 
-![image-20201028011709362](/Users/samstephen/Documents/Typora/前端/VUE/images/virtual-DOM.png)		
+![image-20201028011709362](./images/virtual-DOM.png)		
 
 > 1. **创建阶段。**首先依据 JSX 和基础数据创建出来虚拟 DOM，它反映了真实的 DOM 树的结构。然后由虚拟 DOM 树创建出真实 DOM 树，真实的 DOM 树生成完后，再触发渲染流水线往屏幕输出页面。
 > 2. **更新阶段**。如果数据发生了改变，那么就需要根据新的数据创建一个新的虚拟DOM树；然后比较两个树，找出变化的地方，并把变化的地方一次性更新到真实的 DOM 树上；最后渲染引擎更新渲染流水线，并生成新的页面。
@@ -399,4 +399,100 @@ export default new Router({
 ### 13. 关于antd组件的语言问题
 
 [ConfigProvider](https://antdv.com/components/config-provider/)
+
+---
+
+### 14. CSS样式穿透 ```>>>``` or ```/deep/```
+
+[vue中CSS样式穿透](https://segmentfault.com/a/1190000020368529?utm_source=tag-newest)
+
+> 采用有赞开发的vant组件库。组件库内置了很多样式，方便了我们开发者，同时又因高度封装，有时也会给我们带来一点点困扰。比如在使用vant组件库中的环形进度条时，查看官方文档，有改变进度条颜色，有改变轨道颜色，也有改变填充颜色。就是没有改变现实文字颜色的。凑巧的是，我们的需求就是要**改变文字颜色**，怎么办呢？
+
+```van-circle```组件为例，该组件内部是一个svg和div标签组成，svg用于现实我们图形，div用于显示文字。并且在这个div上存在一个class为```van-circle__text```，且default-color: black。按照以下思路来进行文字颜色完成```color: blue```的修改。
+
+​	1.父级元素更改
+
+​		```van-circle```里包含```div```，在```div```中存在```van-circle__text```。根据css的优先级，修改父级设置并不能改变字体颜色，因为```van-circle__text```的优先级更高。因此下面这种方法是没办法修改文字颜色的。
+
+```vue
+<style lang="less" scoped>
+  .van-circle{color: blue;}
+</style>
+```
+
+​	2.scoped域的限定
+
+​		scoped会将css样式限定在本页面样式渲染，其原理是在每一个样式都会添加一个独一无二的随机属性标签。可以将scoped去除，从而将样式编程全局（全局样式可能会导致样式的污染）。
+
+![](./images/scoped-css.png)
+
+如果删除了scoped，```van-circle__text```的颜色依然为```color: black```。
+
+![](./images/scoped-div.png)
+
+​	3.**样式穿透**
+
+​		官方提供深度选择器，即我们所说的样式穿透。通过上面两个方式的模拟解决，发现并没有办法对高度封装的样式的某些属性进行修改，这时候就需要用到深度选择器。可以在需要穿透的选择器前面添加```>>>```或者```/deep/```就可以实现深度选择器（样式穿透）。
+
+```vue
+// 用/deep/关键字符
+//less写法
+<style lang="less" scoped>
+  .van-circle {
+    /deep/ .van-circle__text {
+      color: blue;
+    }
+  } 
+</style>
+
+//css写法
+<style>
+	.van-circle /deep/ .van-circle__text {
+    color: blue;
+  } 
+</style>
+```
+
+```vue
+// 用>>>关键字符
+//less写法
+<style lang="less" scoped>
+  .van-circle {
+    >>> .van-circle__text {
+      color: blue;
+    }
+  } 
+</style>
+
+//css写法
+<style scoped>
+  .van-circle >>> .van-circle__text {
+    color: blue;
+  }
+</style>
+```
+
+- [ ] 
+
+---
+
+### 15. svg & less
+
+> SVG（Scalable Vector Graphics，可缩放矢量图形），使用 XML 格式定义图像。
+>
+> [svg](https://developer.mozilla.org/zh-CN/docs/Web/SVG) 
+>
+> CSS（Cascading Style Sheets，层叠样式表），是用来控制网页在浏览器中的显示外观的声明式语言。
+>
+> Less（Leaner Style Sheets），扩充了 CSS 语言，增加了诸如变量、混合(mixin)、运算、函数等功能。
+>
+> [less](https://less.bootcss.com)
+
+- [x] 学会官方组件库，组件实现的具体方式的查看
+
+  > [ant design/Customize Theme](https://antdv.com/docs/vue/customize-theme/)
+  >
+  > [default variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
+  >
+  > [ant design/components](https://github.com/vueComponent/ant-design-vue/tree/master/components)
 
