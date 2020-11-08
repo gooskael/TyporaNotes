@@ -8,7 +8,7 @@
 
 ### CSS盒模型
 
-![CSS box-model](/Users/samstephen/Documents/Typora/前端/css/images/box-model.png)
+![CSS box-model](./images/box-model.png)
 
 ​		不同部分的说明：
 
@@ -90,13 +90,15 @@
 > 与vue的挂载el表示的完全不同，```el: #app```表示挂载到```id="app"```，```el: .app```表示挂载到```class="app"```。
 
 ```vue
-<ul>
+<ul class="ul-class-type">
   <p> parent ul color: black </p>
   <li>li color: blue</li>
   <li class="li-class-type"> li-class-type color: green </li>
   <li id="li-id-type"> li-id-type color: pink </li>
 </ul>
 <p>default color</p>
+<ul class="ul-class-type"></ul>
+
 ```
 
 ```vue
@@ -107,6 +109,9 @@ ul {
 li {
 	color: blue;
 }
+.ul-class-type {
+	color: red;
+ }
 .li-class-type {
 	color: green;
   }
@@ -208,6 +213,10 @@ div>p {
 h3+p {
   color: blue;
 }
+div+p{
+  color: red;
+}
+
 ```
 
 ```vue
@@ -277,8 +286,6 @@ export default {
   }
 </style>
 ```
-
-
 
 ---
 
