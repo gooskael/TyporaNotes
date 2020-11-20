@@ -362,3 +362,14 @@ export default {
 > outset //凸框
 > ```
 
+###### 速记属性
+
+```css
+.sample{
+  /* 从top开始，顺时针旋转，top right bottom left */
+  margin: 1px 2px 3px 4px;
+  /* top&down left&right */
+  margin: 1px 0px;
+}
+```
+

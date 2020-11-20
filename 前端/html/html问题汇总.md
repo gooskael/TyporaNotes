@@ -152,3 +152,47 @@
 
 ```td```：table data，单元格内容
 
+****
+
+### 5. `input` `text-overflow: ellipsis;` 失效
+
+解决方案的灵感来源：[css 【text-overflow】 实现超出文本框显示为 ...](https://www.jianshu.com/p/0e6116e67cce?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
+
+`overflow`的优先级高于`text-overflow`，直接对`overflow`进行设置即可。
+
+问题出现的情况是，设置一个上传的input框对文件进行操作，但是在上传了文件之后，文件名过长不会产生省略号。
+
+```vue
+<input type="file" @change="fileChange($event)" />
+```
+
+![image-20201119054553054](./images/uploadbug-overflow.png)
+
+​	1.为了理解整个解决方案，首先明白`overflow`的几个属性含义：
+
+```js
+|VALUE        	| DESCRIPTION
+|visible    		|默认值。内容不会被修剪，会呈现在元素框之外。
+|hidden 				|内容会被修剪，并且其余内容是不可见的。
+|scroll 				|内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+|auto           |如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+|inherit    		|规定应该从父元素继承 overflow 属性的值。
+
+```
+
+> <img src="./images/input-overflow.png" alt="image-20201119053947155" style="zoom:100%;" align="left"/>
+>
+> 可以看到`text-overflow=ellipsis;`失效的时候，input的`overflow: visible;`。再查看一下`visible`所代表的含义：**默认值**，内容不会被修剪，会呈现在元素框之外。overflow的默认值就是visible，因此可以猜想到是因为`overflow: visible;`使得`text-overflow: ellipsis;`失效，没有达到预期的省略效果。
+
+​	2.设置`overflow: auto/hidden;`即可。
+
+为了防止以后还要用到`text-overflow`属性，再顺便摘抄记录一下该属性的几个值：
+
+```js
+| VALUE 		| DESCRIPTION 
+| clip 			| 修剪文本。  
+| ellipsis 	| 显示省略符号来代表被修剪的文本。 
+| *string* 	| 使用给定的字符串来代表被修剪的文本。 
+```
+
+****
