@@ -171,7 +171,7 @@
 ​	1.为了理解整个解决方案，首先明白`overflow`的几个属性含义：
 
 ```js
-|VALUE        	| DESCRIPTION
+|VALUE        	|DESCRIPTION
 |visible    		|默认值。内容不会被修剪，会呈现在元素框之外。
 |hidden 				|内容会被修剪，并且其余内容是不可见的。
 |scroll 				|内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。

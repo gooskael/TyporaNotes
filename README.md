@@ -1,2 +1,7 @@
 # TyporaNotes
-The Typora notes cloud backup
+这一个文件是存储了所有的学习笔记。
+
+可以使用`typora`打开笔记，因为有一些目录在github上无法显示。
+
+根据不同的分类进行管理，可以自行查看。
+
