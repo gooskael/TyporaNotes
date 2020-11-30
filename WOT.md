@@ -2,3 +2,5 @@
 
 - [ ] item => `${item.value} 份`
 
+- [ ] JS的变量
+
