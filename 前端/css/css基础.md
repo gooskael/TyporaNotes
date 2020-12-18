@@ -373,3 +373,8 @@ export default {
 }
 ```
 
+****
+
+### BEM命名规范
+
+[BEM规范](https://blog.csdn.net/chenmoquan/article/details/17095465)
