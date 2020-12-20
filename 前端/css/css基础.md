@@ -375,6 +375,34 @@ export default {
 
 ****
 
+### CSS其他属性
+
+`item-align`
+
+```css
+align-items: stretch|center|flex-start|flex-end|baseline|initial|inherit;
+```
+
+`align-content`
+
+```css
+align-content: stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit;
+```
+
+`vertical-align`
+
+
+
+`text-align`
+
+```css
+text-align: center|left|right|justify
+```
+
+
+
+****
+
 ### BEM命名规范
 
 [BEM规范](https://blog.csdn.net/chenmoquan/article/details/17095465)
