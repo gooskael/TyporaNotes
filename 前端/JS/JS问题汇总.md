@@ -1,60 +1,8 @@
-[TOC]
-
-
-
-### 1. 关于ul、ol、li
-
-**ul**：unordered list
-
-**ol**：ordered list
-
-**li**：list
-
-```
-<p>正常无缩进字体</p>
-<ul> <!-- unordered list -->
-  无序列表
-  <li> first </li> <!-- list -->
-  <li> second </li>
-  <li> third </li>
-</ul>
-<ol> <!-- ordered list -->
-  有序列表
-  <li> first </li>
-  <li> second </li>
-  <li> third </li>
-</ol>
-```
-
-<img src="./images/html问题汇总~1.jpg" alt="ul&amp;ol&amp;li" style="zoom:50%;" align="left" />
-
----------------
-
-### 2. 关于style样式设置匹配
-
-```html
-<style>
-  ul{color:red;}
-  li{color:blue;}
-</style>
-
-<ul>
- 	<li>颜色是蓝色的，匹配li</li>
-  <p>颜色是红色的，匹配ul</p>
-</ul>
-```
-
-关于style设置中的匹配，将会按照自身嵌套的元素往外寻找style。
-
-对于<li>元素，首先寻找是否有li的style设置，如果有，则匹配之，不再寻找其他style。
-
-对于<p>元素，寻找没有p的style设置，则往外寻找ul的style设置，匹配之。即自身的style优先级高，父级次之。
-
-----------------
-
-### 3. script为什么放在html文件的body内部的最后为好？
+### 1. script为什么放在html文件的body内部的最后为好？
 
 [浅谈script标签中的async和defer](https://www.cnblogs.com/jiasm/p/7683930.html)
+
+[你不知道的 DOMContentLoaded](https://zhuanlan.zhihu.com/p/25876048)
 
 ###### `<script>`放在html的`<body>`内部的最后并非是最优。最优的是利用好```async```和```defer```。
 
@@ -75,11 +23,11 @@
 
 ​		B: 而JS会阻塞```DOM Tree```和```CSS Rule Tree```的构造。
 
-> 浏览器加载一个有 <script>标签的网站发生的事情:
+> 浏览器加载一个有` <script>`标签的网站发生的事情:
 >
 > 1.拉取 HTML 页面 (e.g. index.html)，开始解析 HTML
 >
-> 2.解析到<script>标签之后准备获取 script 文件.
+> 2.解析到`<script>`标签之后准备获取 script 文件.
 >
 > 3.浏览器获取script文件。同时，html 解析中断并且**阻断**页面上其他html的解析。
 >
@@ -95,7 +43,7 @@
 
 ​		```async```和```defer```都不会产生上述的阻断```DOM Tree```构造，即运用了这两个属性，script的下载不会阻断html的解析。
 
-​		```async```：async标记的Script异步执行下载，并执行。
+​		```async```：async标记的Script异步执行下载，并执行。**重点：不用等待别人，加载完毕即执行。**
 
 ```html
 <!-- 
@@ -108,7 +56,7 @@
 <!-- script2可能会比script1更早执行完毕 -->
 ```
 
-​		```defer```：defer标记的Script顺序执行。
+​		```defer```：defer标记的Script顺序执行。**重点：顺序执行，加载完毕需等待前者执行完毕。**
 
 ```html
 <!-- 
@@ -123,28 +71,36 @@
 
 ​		值得注意的是，script的下载都是并行的。用以下三张图理解区别：
 
+图中`蓝色：html解析`、`紫色：script加载`、`黄色：script执行`、`绿色：DOMContentLoaded`。
+
+```无属性script```：
+
+```html
+<script type="text/javascript" src="script2.js"></script>
+<script type="text/javascript" src="script1.js"></script>
+```
+
+<img src="./images/default-script.png" alt="image" style="zoom:47%;" />
+
+```async```：
+
 ```html
 <script type="text/javascript" src="script2.js" async></script>
 <script type="text/javascript" src="script1.js" async></script>
 ```
 
-图中```蓝色：html解析```、```紫色：script加载```、```黄色：script执行```、```绿色：DOMContentLoader```
+<img src="./images/async.png" alt="image" style="zoom:57%;" />
 
-```无属性script```：
+<img src="./images/async-bad.png" alt="image-20210105225510187" style="zoom:50%;" />
 
-![image](./images/null.png)
+```defer```：
 
-`async`：
+```html
+<script type="text/javascript" src="script2.js" defer></script>
+<script type="text/javascript" src="script1.js" defer></script>
+```
 
-![image](./images/async.png)
-
-<img src="./images/async-bad.png" alt="image" style="zoom:50%;" />
-
-`defer`：
-
-![image](./images/defer.png)
-
-
+<img src="./images/defer.png" alt="image" style="zoom:65%;" />
 
 - [x] defer总是会比async稳定。
 
@@ -160,57 +116,3 @@
   >
   > ​	如果不太能确定，那么使用defer总会比async稳定。
 
-****
-
-### 4. 关于tr、th、td
-
-```tr```：table row，行
-
-```th```：table header，行标题
-
-```td```：table data，单元格内容
-
-****
-
-### 5. `input` `text-overflow: ellipsis;` 失效
-
-解决方案的灵感来源：[css 【text-overflow】 实现超出文本框显示为 ...](https://www.jianshu.com/p/0e6116e67cce?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
-
-`overflow`的优先级高于`text-overflow`，直接对`overflow`进行设置即可。
-
-问题出现的情况是，设置一个上传的input框对文件进行操作，但是在上传了文件之后，文件名过长不会产生省略号。
-
-```vue
-<input type="file" @change="fileChange($event)" />
-```
-
-![image-20201119054553054](./images/uploadbug-overflow.png)
-
-​	1.为了理解整个解决方案，首先明白`overflow`的几个属性含义：
-
-```js
-|VALUE        	|DESCRIPTION
-|visible    		|默认值。内容不会被修剪，会呈现在元素框之外。
-|hidden 				|内容会被修剪，并且其余内容是不可见的。
-|scroll 				|内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
-|auto           |如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
-|inherit    		|规定应该从父元素继承 overflow 属性的值。
-
-```
-
-> <img src="./images/input-overflow.png" alt="image-20201119053947155" style="zoom:100%;" align="left"/>
->
-> 可以看到`text-overflow=ellipsis;`失效的时候，input的`overflow: visible;`。再查看一下`visible`所代表的含义：**默认值**，内容不会被修剪，会呈现在元素框之外。overflow的默认值就是visible，因此可以猜想到是因为`overflow: visible;`使得`text-overflow: ellipsis;`失效，没有达到预期的省略效果。
-
-​	2.设置`overflow: auto/hidden;`即可。
-
-为了防止以后还要用到`text-overflow`属性，再顺便摘抄记录一下该属性的几个值：
-
-```js
-| VALUE 		| DESCRIPTION 
-| clip 			| 修剪文本。  
-| ellipsis 	| 显示省略符号来代表被修剪的文本。 
-| *string* 	| 使用给定的字符串来代表被修剪的文本。 
-```
-
-****

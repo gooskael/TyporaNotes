@@ -144,5 +144,36 @@
 >
 > 
 
+### 4. 浅拷贝和深拷贝
 
+[浅谈JS中的浅拷贝和深拷贝](https://www.cnblogs.com/chengxs/p/10788442.html)
 
+`浅拷贝`：拷贝开销小，拷贝完之后双方会互相影响。
+
+```js
+// 赋值：会影响
+arr1 = [1, 2];
+arrNew = arr1; // 浅拷贝 arrNew: [1, 2]
+arrNew[0] = 2; // arr1 = arrNew = [2, 2]
+
+// 拓展：当数组的子属性是对象的时候，操作对象元素会影响
+var arr3 = [{name: 'A', age: '10'}, {name: 'B', age: '20'}];
+var arr4 = [{name: 'C', age: '30'}, {name: 'D', age: '40'}];
+var arrOb = [...arr3, ...arr4];
+// 操作对象不会影响
+arrOb[0] = 0;  // arr3: [{name: 'A', age: '10'}, {name: 'B', age: '20'}];
+// 操作对象的元素会影响
+arrOb[0].name = 'F'; // arr3: [{name: 'F', age: '10'}, {name: 'B', age: '20'}];
+```
+
+`深拷贝`：拷贝开销大，拷贝完之后双方不会相互影响。
+
+```js
+// 使用slice可以深拷贝
+arr1 = [1, 2, 3 ,4];
+arr = arr1.slice(0,4); //arr: [1, 2, 3, 4]
+```
+
+### 
+
+<img src="/Users/samstephen/Library/Application Support/typora-user-images/image-20210107134128940.png" alt="image-20210107134128940" style="zoom:50%;" align="left"/>
