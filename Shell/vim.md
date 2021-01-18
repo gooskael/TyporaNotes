@@ -8,3 +8,5 @@
 
 ### 
 
+[Liunx下touch、 mkdir、 cat、 vim 、cp、mv、--help命令的使用](https://blog.csdn.net/ningyuxuan123/article/details/79749403)
+

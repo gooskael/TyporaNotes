@@ -321,7 +321,9 @@ export default {
 
 ```letter-spacing: 1pt;```：[**字间距离**]()
 
-```line-height: 200%;```：[**行高**]()
+```line-height: 200%/1/2;```：[**行高/行间距**]()
+
+`text-indent: 28px;`：[**首行缩进**]()
 
 ```vertical-align: super/sub;```：[**上/下标字**]()  
 

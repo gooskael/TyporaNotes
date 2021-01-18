@@ -4,7 +4,7 @@
 
 ## 一. JS简介
 
-### js、es、node.js
+### 1.1 js、es、node.js
 
 > **JS**：`JS`是由`ES(ECMAScript)`、`DOM`(浏览器文档对象)、`BOM`(浏览器对象模型)组成。
 >
@@ -14,7 +14,7 @@
 
 ****
 
-### DOM
+### 1.2 DOM
 
 ​	首先理解HTML、CSS、JS三个所负责的任务。
 
@@ -48,7 +48,7 @@
 
 ****
 
-### BOM
+### 1.3 BOM
 
 ​	BOM（Browser Object Model，浏览器对象模型），开发人员使用BOM可以控制浏览器显示的页面以外的部分。比如说弹出新浏览器窗口的功能、移动缩放以及关闭浏览器的功能等。但是BOM目前没有相关的标准（因此经常会导致问题）。HTML5致力于把很多BOM功能写入正式规范。
 
@@ -76,7 +76,93 @@
 
 ​	关于1.`script`标签放在`body`内容的末尾；2.配合`async`和`defer`使用`<script>`标签更优，详见JS问题汇总。
 
+## 三. 基本概念
+
+- [ ] ​	`typeof()`
+
+### 3.1 注释
+
+```js
+// 单行注释
+/*
+ * 多行注释，
+ * 为了增加可读性，在每一行前面添加*
+ */
+```
+
+****
+
+### 3.2 关键字和保留字
+
+​	1.**关键字**可用于表示控制语句的开始或结束，或者用语执行特定操作等。
+
+```js
+break 			do				instanceof		typeof
+case				else			new						var
+catch				finally		return				void
+continue		for				switch				while
+debugger		function	this					with
+default			if				throw
+delete			in				try
+```
+
+- [x] typeof：判断变量类型
+
+- [x] switch
+
+  > ```js
+  > handle(e) {
+  >   switch(e) {
+  >     case 0:
+  >       console.log('0');
+  >     case 1:
+  >       console.log('1');
+  >   }
+  > }
+  > ```
+
+- [x] debugger：用于产生断点
+
+​	2.**保留字**还没有任何特定的用途，但它们有可能在将来被用作关键字。
+
+```js
+// ES5在非严格模式下运行时的保留字缩减为：
+class			enum			extends			super
+const			export		import
+// 严格模式下
+implements 		package			public
+interface			private			static
+let						protected		yield
+```
+
+- [x] `严格模式`：严格模式是为JavaScrip定义了一种不同的解释和执行模型。一些不确定的行为将得到处理，而且对某些不安全的操作也会跑出错误。
+
+  ```js
+  function doSomething() {
+    "use strict";
+    // pass
+  }
+  ```
+
+### 3.3 变量
+
+```js
+var message; // 声明不赋值；message === 'undefined'
+var str = 'hi'; // 声明并初始化
+str = 100; // 可以改变类型，但是不建议
+var paper = "hi",
+    found = false,
+    age = 29; // 声明并初始化多个变量
+```
+
+****
+
+### 3.4 数据类型
+
+​	
 
 
 
 
+
+​		
