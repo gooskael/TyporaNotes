@@ -303,6 +303,8 @@ export default {
 
 ###### 文字属性
 
+[text-decoration相关属性](https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset)
+
 ```color: #000000;``` ：[**颜色**]()
 
 ```font-family: sans-serif;```：[**字体**]()
@@ -379,7 +381,7 @@ export default {
 
 ### CSS其他属性
 
-`item-align`
+`align-items`
 
 ```css
 align-items: stretch|center|flex-start|flex-end|baseline|initial|inherit;
