@@ -22,6 +22,7 @@
 > git remote -v
 > // 断开连接
 > git remote rm origin
+> // 不能轻易改变vscode中的remote
 > ```
 
 ​	测试是否成功：
