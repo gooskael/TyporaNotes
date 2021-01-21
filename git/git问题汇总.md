@@ -3,6 +3,16 @@
 [git连接gitlab远程仓库](https://blog.csdn.net/lkt_anhua/article/details/78835226)
 
 1. 在git仓库网站（如`gitlab`中`createProject`，填入相关的`projectName` 、 `description`。
+
+   > ```shell
+   > $ git init
+   > $ git add . 
+   > $ git commit -m ''
+   > 
+   > ```
+   >
+   > 
+
 2. 根据提示完成初始化git项目、并push即可。
 
 ​	在这个过程中，可能`git remote xxxxxxxxx`的时候出错，可以查看已连接仓库、删除已连接仓库。
