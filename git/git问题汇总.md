@@ -125,6 +125,8 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 
 #### git clone 失败原因分析及解决方案
 
+​	0.对于clone下来的项目，不要轻易改变`git remote -v`的地址。
+
 ​	上述可以看到，git clone失败的原因：
 
 1. 本机`id_rsa.pub`与仓库网站的用户SSH设置不符。先检查仓库网站用户的SSH设置以本机`id_rsa.pub`是否一致，如果不一致可以`1.添加SSH`；`2.利用附加用户名以及密码的方式克隆`。
