@@ -1,3 +1,5 @@
+[TOC]
+
 ### 0. git初始化项目以及仓库
 
 [git连接gitlab远程仓库](https://blog.csdn.net/lkt_anhua/article/details/78835226)
@@ -170,3 +172,11 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 ​	**总结起来**：就是查看`ssh`与`id_rsa.pub`是否对应 > 查看管理账号密码钥匙串是否正确 > 不行就直接使用`附加用户名以及密码的方式克隆`。
 
 ****
+
+### 3. SSL 443报错
+
+```shell
+$ git config --global --unset http.https://github.com.proxy
+$ git config --global --unset https.https://github.com.proxy
+```
+

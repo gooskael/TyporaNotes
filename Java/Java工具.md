@@ -62,3 +62,26 @@ help > Eclipse Marketplace > search > "color" 索引到“Eclipse Color Theme 1.
 
 - [ ] Q：似乎重启了之后还是不能应用该主题
 
+****
+
+### IDEA
+
+​	eclips太古老，现在一般使用IDEA，在mac系统下`IntelliJ IDEA CE`。
+
+#### 创建一个项目
+
+​	1.`file` > `New => Project` > `选择sdk(1.8即可) => Next => Next(不采用template)` => 输入文件名\路径
+
+​	2.在`src`文件目录下创建新的`package` => 在`package`目录下创建新类，增加main函数即可测试。
+
+```java
+// package是Inheritance Class是InheritanceFather
+package Inheritance;
+
+public class InheritanceFather {
+    public static void main(String args[]) {
+        System.out.println("Hello");
+    }
+}
+```
+

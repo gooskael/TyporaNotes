@@ -58,7 +58,7 @@
 
 <img src="./images/vue-options.png" alt="image-20201207220704843" style="zoom:50%;" align="left"/>
 
-- [ ] 什么时候是函数，什么时候是方法？[函数和方法的区别](https://blog.csdn.net/qq_34952846/article/details/78943800) here is a TASK LIST 
+- [ ] 什么时候是函数，什么时候是方法？[函数和方法的区别](https://blog.csdn.net/qq_34952846/article/details/78943800)
 
   > A.从定义上来看：
   >
@@ -82,6 +82,8 @@
   > [C++]()中：方法在C++ 中是被称为`成员函数`。因此，在 C++ 中的“方法”和“函数”的区别，就是“成员函数”和“函数”的区别。
   >
   > [Java]()中：诸如 Java 一类的编程语言只有“方法”。所以这时候就是“静态方法”和“方法”直接的区别。
+
+
 
 
 ##### 生命周期和钩子函数

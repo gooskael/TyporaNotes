@@ -46,4 +46,4 @@ IMPORTANT：声明变量和定义变量不同，先声明，后定义。
 
 #### 输入输出
 
-> Java使用System.out来表示标准输出设备，而用System.in来表示表尊
+> Java使用System.out来表示标准输出设备，而用System.in来表示表
