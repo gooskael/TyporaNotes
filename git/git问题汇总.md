@@ -8,12 +8,12 @@
 
    > ```shell
    > $ git init
+   > $ git remote add origin git@···
    > $ git add . 
-   > $ git commit -m ''
-   > 
+   > $ git commit -m 'Initial commit'
+   > $ git push -u origin master
    > ```
    >
-   > 
 
 2. 根据提示完成初始化git项目、并push即可。
 
