@@ -175,8 +175,24 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 
 ### 3. SSL 443报错
 
+- [x] 问题报错：Failed to connect to github.com port 443
+- [x] 解决方案：取消代理
+
 ```shell
 $ git config --global --unset http.https://github.com.proxy
 $ git config --global --unset https.https://github.com.proxy
 ```
+
+### 4. fatal: the remote end hung up unexpectedly
+
+- [x] 问题报错：error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: CANCEL (err 8)
+- [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
+
+```shell
+$ git config --global http.postBuffer 524288000
+// 记得在console中git push更不容易出错
+$ git push
+```
+
+
 
