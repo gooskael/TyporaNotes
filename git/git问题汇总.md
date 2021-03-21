@@ -7,10 +7,15 @@
 1. 在git仓库网站（如`gitlab`中`createProject`，填入相关的`projectName` 、 `description`。
 
    > ```shell
+   > // 初始化成一个可维护的git仓库文件
    > $ git init
+   > // 添加origin字段所代表的仓库远程地址
    > $ git remote add origin git@···
+   > // 将所有修改及新加的文件变化提交到暂存区
    > $ git add . 
+   > // commit，并且输入commit的内容
    > $ git commit -m 'Initial commit'
+   > // 
    > $ git push -u origin master
    > ```
    >
@@ -176,12 +181,14 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 ### 3. SSL 443报错
 
 - [x] 问题报错：Failed to connect to github.com port 443
-- [x] 解决方案：取消代理
+- [x] 解决方案：取消代理。一般是翻墙克隆下来会出现的问题。
 
 ```shell
 $ git config --global --unset http.https://github.com.proxy
 $ git config --global --unset https.https://github.com.proxy
 ```
+
+****
 
 ### 4. fatal: the remote end hung up unexpectedly
 
@@ -194,5 +201,52 @@ $ git config --global http.postBuffer 524288000
 $ git push
 ```
 
+****
 
+### 5. Git push
+
+```shell
+$ git push origin
+```
+
+上面命令表示，将当前分支推送到origin主机的对应分支。如果当前分支只有一个追踪分支，那么主机名都可以省略。即直接`git push`。
+
+```shell
+$ git push -u origin master
+$ git push -u <主机> <本地分支>
+```
+
+上面命令将本地的master分支推送到origin主机，同时**指定origin为默认主机**，后面就可以不加任何参数使用git push了。
+
+`git push`：不带任何参数的git push，默认只推送当前分支，这叫做simple方式。
+
+#### git push -u origin master & --set-upstream-to
+
+- [x] 参考[git push的-u参数具体含义](https://www.zhihu.com/question/20019419/answer/48434769)
+
+> ​	1.upstream不是针对远程仓库的，而是针对branch的。但是upstream和有几个远程库没有必然联系。比如远程库A上有3个分支branch1、branch2、branch3。远程库B上有3个分支branchx、branchy、branchz。本地仓库有2个分支local1和local2。那么当初始状态时，local1和local2和任何一个分支都没有关联，也就是没有upstream。当通过git branch --set-upstream-to A/branch1 local1命令执行后，会给local1和branch1两个分支建立关联，也就是说local1的upstream指向的是branch1。 => **upstream建立了本地分支和远程分支的fetch对应关系**
+
+> ​	2.使用了upstream之后：这样的好处就是在local1分支上执行git push（git pull同理）操作时不用附加其它参数，Git就会自动将local1分支上的内容push到branch1上去。同样，local2分支也可以和远程库A和远程库B上的任何一个分支建立关联，只要给local2分支设置了upstream，就可以在local2分支上用git push（git pull同理）方便地与目标分支推拉数据。 => **upstream建立联系之后就可以使用simple方式直接`git push/pull`而不用添加参数**
+
+- [x] e.g. 我要把本地分支mybranch1与远程仓库origin里的分支mybranch1建立关联。
+
+  途径1：
+
+  ```shell
+  // 首先，你要切换到mybranch1分支上
+  $ git checkout mybranch1
+  // 和远程仓库建立联系，并且设置为默认提交仓库分支
+  $ git push -u origin mybranch1
+  ```
+
+  途径2：
+
+  ```shell
+  $ git branch --set-upstream-to=origin/mybranch1 mybranch1
+  $ git push origin mybranch1
+  ```
+
+即：`git push -u origin mybranch1` === `git push origin mybranch1` + `git branch --set-upstream-to=origin/mybranch1 mybranch1`。
+
+****
 
