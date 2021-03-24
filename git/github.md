@@ -1,11 +1,6 @@
 [TOC]
 
-[git学习指南](https://fe.rualc.com/note/git.html)
-
-### github.com
-
-- [用户名](pickGithub9527)
-- [登录账户-默认](2207164497@qq.com)
+参考：[git学习指南](https://fe.rualc.com/note/git.html)、[终端上使用Github分享](https://www.jianshu.com/p/899a2d4de88f)。
 
 #### branch和commit
 
@@ -46,12 +41,6 @@
 5. confirm
 
    项目的根目录最上面一栏"Pull request" > confirm pull request
-
-
-
-#### 终端上使用
-
-参考[终端上使用Github分享](https://www.jianshu.com/p/899a2d4de88f)
 
 
 

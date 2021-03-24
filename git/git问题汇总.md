@@ -15,21 +15,24 @@
    > $ git add . 
    > // commit，并且输入commit的内容
    > $ git commit -m 'Initial commit'
-   > // 
-   > $ git push -u origin master
+   > // 将本地main分支和远程仓库origin建立连接
+   > $ git push -u origin main
    > ```
    >
 
 2. 根据提示完成初始化git项目、并push即可。
 
-​	在这个过程中，可能`git remote xxxxxxxxx`的时候出错，可以查看已连接仓库、删除已连接仓库。
+​	在这个过程中，可能`git remote xxxxxxxxx`的时候出错，可以查看已连接仓库、删除已连接仓库。或者有更改远程仓库链接的需要。
 
 > ```shell
 > // 查看已经连接的远程仓库
-> git remote -v
+> $ git remote -v
 > // 断开连接
-> git remote rm origin
-> // 不能轻易改变vscode中的remote
+> $ git remote rm origin
+> // 添加新的仓库链接
+> $ git remote add origin git@···
+> // 设置本地main提交到origin为默认提交远程分支
+> $ git push -u origin main
 > ```
 
 ​	测试是否成功：
@@ -190,7 +193,7 @@ $ git config --global --unset https.https://github.com.proxy
 
 ****
 
-### 4. fatal: the remote end hung up unexpectedly
+#### 4. fatal: the remote end hung up unexpectedly
 
 - [x] 问题报错：error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: CANCEL (err 8)
 - [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
@@ -212,15 +215,15 @@ $ git push origin
 上面命令表示，将当前分支推送到origin主机的对应分支。如果当前分支只有一个追踪分支，那么主机名都可以省略。即直接`git push`。
 
 ```shell
-$ git push -u origin master
+$ git push -u origin main
 $ git push -u <主机> <本地分支>
 ```
 
-上面命令将本地的master分支推送到origin主机，同时**指定origin为默认主机**，后面就可以不加任何参数使用git push了。
+上面命令将本地的main分支推送到origin主机，同时**指定origin为默认主机**，后面就可以不加任何参数使用git push了。
 
 `git push`：不带任何参数的git push，默认只推送当前分支，这叫做simple方式。
 
-#### git push -u origin master & --set-upstream-to
+#### git push -u origin main & --set-upstream-to
 
 - [x] 参考[git push的-u参数具体含义](https://www.zhihu.com/question/20019419/answer/48434769)
 

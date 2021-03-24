@@ -20,8 +20,6 @@
 
  `Hightlight Matching Tag`：点击一个标签之后，会在所配对的标签下面用underline标注出来。
 
-`Image preview`：悬停可以预览照片。
-
 ------------
 
 ####  `gitlens`
@@ -73,6 +71,18 @@
 }
 ```
 
+#### Theme： `Atom one dark Theme` or `Oceanic next`
+
+​	个人比较偏好`Oceanic next`
+
+****
+
+#### 预览：`image preview` & `color highlignt`
+
+`Image preview`：悬停可以预览照片。
+
+`color highlight`：颜色值可以直接在代码中显示出来。
+
 ****
 
 ### Vscode git
@@ -84,5 +94,5 @@
 #### 1. 无权限push
 
 - [x] 问题出现：在终端上git clone了代码，在vscode上push的时候无权限，即`denied`。
-- [x] 解决方式：使用终端进入到对应的目录下，`git push`可以成功，但是每次都要输入密码。
+- [x] 解决方式：在vscode打开终端，在终端中直接使用`git push`，但是每次都要输入密码。
 
