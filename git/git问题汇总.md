@@ -9,7 +9,7 @@
    > ```shell
    > // 初始化成一个可维护的git仓库文件
    > $ git init
-   > // 添加origin字段所代表的仓库远程地址
+   > // 添加origin字段所代表的仓库远程地址,即赋值一个url给origin
    > $ git remote add origin git@···
    > // 将所有修改及新加的文件变化提交到暂存区
    > $ git add . 
@@ -196,7 +196,7 @@ $ git config --global --unset https.https://github.com.proxy
 #### 4. fatal: the remote end hung up unexpectedly
 
 - [x] 问题报错：error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: CANCEL (err 8)
-- [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
+- [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址（未测试过）。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
 
 ```shell
 $ git config --global http.postBuffer 524288000
