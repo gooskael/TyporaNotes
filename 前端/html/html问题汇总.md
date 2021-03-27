@@ -2,53 +2,36 @@
 
 
 
-### 1. 关于ul、ol、li
+### 1. 标签相关
 
-**ul**：unordered list
+#### 关于ul、ol、li
 
-**ol**：ordered list
+​	列表会有`indent`缩进效果。
 
-**li**：list
+`ul`：unordered list => 无序列表，只有DOT
+
+`ol`：ordered list => 有序列表
+
+`li`：一般作为列表的内容标签。
 
 ```
-<p>正常无缩进字体</p>
-<ul> <!-- unordered list -->
+<ul>
   无序列表
-  <li> first </li> <!-- list -->
-  <li> second </li>
-  <li> third </li>
+  <li> first </li>
 </ul>
-<ol> <!-- ordered list -->
+<ol>
   有序列表
   <li> first </li>
-  <li> second </li>
-  <li> third </li>
 </ol>
 ```
 
-<img src="./images/html问题汇总~1.jpg" alt="ul&amp;ol&amp;li" style="zoom:50%;" align="left" />
+#### 关于tr、th、td
 
----------------
+```tr```：table row，行
 
-### 2. 关于style样式设置匹配
+```th```：table header，行标题
 
-```html
-<style>
-  ul{color:red;}
-  li{color:blue;}
-</style>
-
-<ul>
- 	<li>颜色是蓝色的，匹配li</li>
-  <p>颜色是红色的，匹配ul</p>
-</ul>
-```
-
-关于style设置中的匹配，将会按照自身嵌套的元素往外寻找style。
-
-对于<li>元素，首先寻找是否有li的style设置，如果有，则匹配之，不再寻找其他style。
-
-对于<p>元素，寻找没有p的style设置，则往外寻找ul的style设置，匹配之。即自身的style优先级高，父级次之。
+```td```：table data，单元格内容
 
 ----------------
 
@@ -159,16 +142,6 @@
   > ​	而如果脚本并不关心页面中的DOM元素，则使用`async`也无妨。
   >
   > ​	如果不太能确定，那么使用defer总会比async稳定。
-
-****
-
-### 4. 关于tr、th、td
-
-```tr```：table row，行
-
-```th```：table header，行标题
-
-```td```：table data，单元格内容
 
 ****
 

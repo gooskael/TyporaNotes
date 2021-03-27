@@ -2,38 +2,24 @@
 
 ### 0. git初始化项目以及仓库
 
-[git连接gitlab远程仓库](https://blog.csdn.net/lkt_anhua/article/details/78835226)
+[git连接gitlab远程仓库](https://blog.csdn.net/lkt_anhua/article/details/78835226)：以gitlab为例子。
 
-1. 在git仓库网站（如`gitlab`中`createProject`，填入相关的`projectName` 、 `description`。
+1. 在git仓库网站（如`gitlab`中`createProject`，填入相关的`projectName` 、 `description`，就能在平台创建一个项目仓库。
 
-   > ```shell
-   > // 初始化成一个可维护的git仓库文件
-   > $ git init
-   > // 添加origin字段所代表的仓库远程地址,即赋值一个url给origin
-   > $ git remote add origin git@···
-   > // 将所有修改及新加的文件变化提交到暂存区
-   > $ git add . 
-   > // commit，并且输入commit的内容
-   > $ git commit -m 'Initial commit'
-   > // 将本地main分支和远程仓库origin建立连接
-   > $ git push -u origin main
-   > ```
-   >
+2. 完成初始化git项目、并push即可。url可以从平台仓库找到（`code/代码`下拉后有ssh/https的方式）。
 
-2. 根据提示完成初始化git项目、并push即可。
-
-​	在这个过程中，可能`git remote xxxxxxxxx`的时候出错，可以查看已连接仓库、删除已连接仓库。或者有更改远程仓库链接的需要。
-
-> ```shell
-> // 查看已经连接的远程仓库
-> $ git remote -v
-> // 断开连接
-> $ git remote rm origin
-> // 添加新的仓库链接
-> $ git remote add origin git@···
-> // 设置本地main提交到origin为默认提交远程分支
-> $ git push -u origin main
-> ```
+   ```shell
+   // 初始化成一个可维护的git仓库文件
+   $ git init
+   // 添加origin字段所代表的仓库远程地址,即赋值一个url给origin
+   $ git remote add origin git@···
+   // 将所有修改及新加的文件变化提交到暂存区
+   $ git add . 
+   // commit，并且输入commit的内容
+   $ git commit -m 'Initial commit'
+   // 将本地main分支和远程仓库origin建立连接
+   $ git push -u origin main
+   ```
 
 ​	测试是否成功：
 
@@ -74,6 +60,9 @@ $ git config --global --replace-all user.password 'newPwd'
 > ```shell
 > // 利用email生成一个私钥和公钥
 > $ ssh-keygen -t rsa -C 'email'
+> >>> Enter passphrase (empty for no passphrase):
+> >>> Enter same passphrase again: 
+> // 注意如果设定了passphrase，以后每次都要输入，不设定的话直接enter即可
 > ```
 >
 > ```shell
@@ -96,6 +85,18 @@ $ git config --global --replace-all user.password 'newPwd'
 - [x] ssh有什么用？
 
   ssh是一个安全协议，以非对称加密实现身份验证。本机产生id_rsa(私钥) id_rsa.pub(公钥)，将公钥上传到github上。pull的时候公钥用于对数据进行加密，私钥用于对数据进行解密，push的时候私钥用于对数据进行签名，公钥用于对签名进行验证。
+  
+- [x] 在生成私钥和公钥的时候，会提示输入一个`passphrase`，作用是每次你需要访问`id_rsa`的时候需要输入这个`passphrase`确认你要使用私钥；这就间接地变成，每次需要`git push`操作的时候，都还是要输入一个密码。两种方法可以避免：1.在设置的时候遇到要设置`passphrase`的时候，可以直接按enter跳过该步骤，那么每次访问私钥的时候就不需要输入这个`passphrase`。2.如果已经设置了`passphrase`，取消即可。通过`ssh-keygen -p `可以重新设置`passphrase`。
+
+  ```shell
+  $ ssh-keygen -p // passphrase
+  >>> Enter file in which the key is (/Users/samstephen/.ssh/id_rsa): 
+  >>> Enter old passphrase: 
+  >>> Key has comment '2207164497@qq.com'
+  >>> Enter new passphrase (empty for no passphrase): 
+  >>> Enter same passphrase again: 
+  // 除了输入旧密码，其他都可以enter跳过
+  ```
 
 ****
 
@@ -118,7 +119,7 @@ $ git clone https://git.weixin.qq.com/wx_wx***************/glorySystem.git
 ​	比如上面的`git clone`命令，会去`钥匙串访问`系统中的数据进行对比，找到位置为`https://git.weixin.qq.com`的账号密码进行使用。如果能够登录，则直接完成克隆；如果**钥匙串管理的账号密码有误**，就会产生：
 
 ```shell
-fatal: Authentication failed for 'https://git.weixin.qq.com/wx_wx421c68eb8d43725d/glorySystem.git/'
+fatal: Authentication failed for 'https://git.weixin.qq.com/****.git/'
 ```
 
 ****
@@ -134,8 +135,6 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 ​	需要注意的是，用户名以及密码中一定要转义，比如`@`转义后就是`%40`。
 
 #### git clone 失败原因分析及解决方案
-
-​	0.对于clone下来的项目，不要轻易改变`git remote -v`的地址。
 
 ​	上述可以看到，git clone失败的原因：
 
@@ -181,32 +180,7 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 
 ****
 
-### 3. SSL 443报错
-
-- [x] 问题报错：Failed to connect to github.com port 443
-- [x] 解决方案：取消代理。一般是翻墙克隆下来会出现的问题。
-
-```shell
-$ git config --global --unset http.https://github.com.proxy
-$ git config --global --unset https.https://github.com.proxy
-```
-
-****
-
-#### 4. fatal: the remote end hung up unexpectedly
-
-- [x] 问题报错：error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: CANCEL (err 8)
-- [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址（未测试过）。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
-
-```shell
-$ git config --global http.postBuffer 524288000
-// 记得在console中git push更不容易出错
-$ git push
-```
-
-****
-
-### 5. Git push
+### 3. Git push
 
 ```shell
 $ git push origin
@@ -250,6 +224,92 @@ $ git push -u <主机> <本地分支>
   ```
 
 即：`git push -u origin mybranch1` === `git push origin mybranch1` + `git branch --set-upstream-to=origin/mybranch1 mybranch1`。
+
+****
+
+#### 更换远程仓库地址
+
+​	有时候需要更换远程仓库地址，比如从https协议更换成ssh协议；比如说远程仓库的拥有者更改了名字，仓库地址发生改变。
+
+1.移除原本的地址，可以使用`git remote -v`查看字段以及远程仓库的具体url。如果原本的远程仓库地址的字段的`origin`：
+
+```shell
+// 查看已经连接的远程仓库
+$ git remote -v
+>>> origin  git@github.com:gooskael/TyporaNotes.git (fetch)
+>>> origin  git@github.com:gooskael/TyporaNotes.git (push)
+// 断开连接，移除origin远程仓库链接
+$ git remote rm origin
+// 添加新的仓库链接，还是使用origin字段作shortname
+$ git remote add origin git@···
+
+// 设置本地master提交到origin为默认提交远程分支
+$ git push -u origin ma
+```
+
+2.检查分支，先pull下来远程仓库内容
+
+```shell
+// 先检查现在的分支情况，以及本地的项目分支名称
+$ git status
+>>> On branch master
+
+// 方式1.设置update stream，再重新查看一下status就可以看到
+// 意思为：本地的master和远程origin链接的master分支建立联系
+$ git branch --set-upstream-to=origin/master master
+$ git status
+>>> On branch master
+>>> Your branch is up to date with 'origin/master'.
+// 这时候就已经建立联系了，可以直接git pull 和git push
+$ git pull
+
+// 方式2.利用git push -u origin master和远程仓库建立联系
+// 但是这种方式比较麻烦，因为push之前要保证有commit
+// 第一步，使用使用git pull <remote> <branch>，同步远程仓库的内容
+$ git pull origin master
+// 第二步，提交commit
+// 如果没有改动的文件，就随便改动一下提交一次commit，
+// 比如在某个文件随便添加点注释，改动之后，add、commit
+$ git add .
+$ git commit -m 'reload'
+$ git push -u origin master
+```
+
+​	通过上面的两种方式，可以看到有时候需要利用`update stream`更加方便。
+
+****
+
+### 4. Git失败情况及解决方案
+
+#### 4.1 vscode 无权限push
+
+- [x] 问题出现：在终端上git clone了代码，在vscode上push的时候无权限，即`denied`。
+- [x] 解决方式：在vscode打开终端，在终端中直接使用`git push`，但是每次都要输入密码。
+
+****
+
+#### 4.2 fatal: the remote end hung up unexpectedly
+
+- [x] 问题报错：error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: CANCEL (err 8)
+- [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址（未测试过）。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
+
+```shell
+$ git config --global http.postBuffer 524288000
+// 记得在console中git push更不容易出错
+$ git push
+```
+
+****
+
+#### 4.3 SSL 443报错
+
+- [x] 问题报错：Failed to connect to github.com port 443
+- [x] 解决方案：取消代理。一般是翻墙克隆下来会出现的问题。
+
+```shell
+$ git config --global --unset http.https://github.com.proxy
+$ git config --global --unset https.https://github.com.proxy
+```
 
 ****
 

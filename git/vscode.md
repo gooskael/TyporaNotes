@@ -2,6 +2,10 @@
 
 ### Vscode插件
 
+#### 0. 同步功能Sync
+
+​	在vscode中下载了插件以及配置了settings之后，可以开启`Settings Sync`，在打开了设置`settings`之后可以在右上角看到。`sync`的作用以及注意事项参考[Settings Sync](https://code.visualstudio.com/docs/editor/settings-sync)。
+
 [高效搬砖：我的VS Code配置分享和插件推荐](https://my.oschina.net/u/4593024/blog/4549653/)
 
 #### `open in browser` & `Live Server`
@@ -28,46 +32,51 @@
 
 ---
 
-#### `todo tree` & `todo highlight`
+#### `todo tree`
 
-`Todo Tree`：记录关键字，比如`todo`，会以一棵树的方式在侧栏记录，点击后跳转到记录的位置。
+`Todo Tree`：记录关键字，比如`todo`，会以一棵树的方式在侧栏记录，点击后跳转到记录的位置。可以配置相关关键字以及highlight的颜色、方式等。
 
-`Todo Highlight`：对关键字有不同的样式展示，可以配置相关文件改变样式。
-
-​		`todo highlight` > `Extension Settings` > `Todohighlight: Keywords > Edit in settings.json` 
+​		`todo tree` > `Extension Settings` > `Edit in settings.json` 
 
 ```json
 // settings.json
 {
     "todo-tree.tree.showScanModeButton": false,
-    "todohighlight.keywords": [
-        "TODO",
-        "FIXME",
+    "todo-tree.general.tags": [
+        "NOTE:",
+        "FIX:",
+        "TODO:",
     ],
+    "todo-tree.general.tagGroups": {
+        "TODO:": ["todo:"]
+    },
     "todo-tree.regex.regexCaseSensitive": false,
-    "todo-tree.tree.showInExplorer": true,
     "todo-tree.highlights.defaultHighlight": {
-        "foreground": "black",
-        "background": "yellow",
+        "foreground": "#fff",
         "icon": "check",
-        "rulerColour": "yellow",
-        "type": "tag",
-        "iconColour": "yellow"
+        "type": "text",
+        "iconColour": "#6dd5ed",
+        "borderRadius": "5px",
     },
     "todo-tree.highlights.customHighlight": {
-        "TODO": {
-            "background": "yellow",
-            "rulerColour": "yellow",
-            "icon": "tag",
-            "iconColour": "yellow"
+        "TODO:": {
+            "icon": "alert",
+            "background": "#f8b500",
+            "iconColour": "#f8b500"
         },
-        "FIXME": {
-            "background": "red",
-            "icon": "beaker",
-            "rulerColour": "red",
-            "iconColour": "red",
+        "FIX:": {
+            "background": "#ef475d",
+            "icon": "tools",
+            "iconColour": "#ef475d",
+        },
+        "NOTE:": {
+            "background": "#B06AB3",
+            "icon": "list-unordered",
+            "iconColour": "#B06AB3",
+            "rulerLane": "full"
         },
     },
+    "todo-tree.regex.regex":"((//|#|<!--|;|/\\*)\\s*($TAGS)|^\\s*- \\[ \\])",
 }
 ```
 
@@ -83,6 +92,21 @@
 
 `color highlight`：颜色值可以直接在代码中显示出来。
 
+#### 字体：`JetBrains Mono`
+
+参考：[字体官方下载](https://www.jetbrains.com/lp/mono/)，下载完打开`font`文件夹内的所有文件，下载到本机当中。在vscode的`settings > user > Text Editor > Font > Font Family`输入`Jetbrains Mono`。 
+
+<img src="./images/Jetbrains-mono.png" alt="image-20210325224048865" style="zoom:50%;" />
+
+​	在Font Family下面的Font Ligatures，有`Edit in settings.json`可以设置其他参数，比如调整字体大小和行间距，这个字体和行间距比较舒服：
+
+```js
+{
+  	"editor.fontSize": 14,
+    "editor.lineHeight": 22,
+}
+```
+
 ****
 
 ### Vscode git
@@ -91,8 +115,4 @@
 
 ​		同时如果想要pull/clone代码，也可以通过`···`中的`pull `/ `clone` 进行操作。
 
-#### 1. 无权限push
-
-- [x] 问题出现：在终端上git clone了代码，在vscode上push的时候无权限，即`denied`。
-- [x] 解决方式：在vscode打开终端，在终端中直接使用`git push`，但是每次都要输入密码。
-
+****
