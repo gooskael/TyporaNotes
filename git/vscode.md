@@ -109,6 +109,12 @@
 
 ****
 
+#### Project Manager
+
+​	每个文件打开之后可以保存其路径，并且在侧边栏给这个路径保存一个名字；下次直接点击这个名字就可以打开这个文件，方便多文件之间的切换。
+
+****
+
 ### Vscode git
 
 ​		`Source Control`栏：`Changes`文件夹保存本地修改过的代码的文件，通过在修改文件后的`+`可以将文件添加到`Stage Changes`，`commit`按钮可以将代码放在准备push的栈（commit之前记得在Message的input框中填写本次commit的内容），然后在`···`中的`push`将代码push上去。
@@ -116,3 +122,11 @@
 ​		同时如果想要pull/clone代码，也可以通过`···`中的`pull `/ `clone` 进行操作。
 
 ****
+
+### Vscode C++
+
+​	参考：[在mac上使用vscode创建第一个C++项目](https://blog.csdn.net/brazy/article/details/92801958)。
+
+​	1.`clang`：mac使用，相当于linux、window使用的GCC
+
+​	3.`C++插件`：

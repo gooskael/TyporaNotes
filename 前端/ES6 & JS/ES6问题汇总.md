@@ -146,27 +146,57 @@
 
 ### 4. 浅拷贝和深拷贝
 
-[浅谈JS中的浅拷贝和深拷贝](https://www.cnblogs.com/chengxs/p/10788442.html)
+[浅谈JS中的浅拷贝和深拷贝](https://www.cnblogs.com/chengxs/p/10788442.html)、[一文读懂 Javascript 深拷贝与浅拷贝](https://mp.weixin.qq.com/s/7C4kq48eu2g0Q3AEBiNhhw)
 
-`浅拷贝`：拷贝开销小，拷贝完之后双方会互相影响。
+![image-20210327231821111](./images/clone.png)
+
+`浅拷贝`：拷贝开销小（不生成新的内存地址），拷贝完之后双方会互相影响。如果属性是基本类型，拷贝的就是基本类型的值，如果属性是引用类型，拷贝的就是内存地址 ，所以如果其中一个对象改变了这个地址，就会影响到另一个对象。
+
+`深拷贝`：开销大，深拷贝是将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且修改新对象不会影响原对象。
 
 ```js
-// 赋值：会影响
-arr1 = [1, 2];
-arrNew = arr1; // 浅拷贝 arrNew: [1, 2]
-arrNew[0] = 2; // arr1 = arrNew = [2, 2]
+var a1 = {b: {c: {}};
+          
+var a2 = shallowClone(a1); // 浅拷贝方法
+a2.b.c === a1.b.c // true 新旧对象还是共享同一块内存
 
-// 拓展：当数组的子属性是对象的时候，操作对象元素会影响
-var arr3 = [{name: 'A', age: '10'}, {name: 'B', age: '20'}];
-var arr4 = [{name: 'C', age: '30'}, {name: 'D', age: '40'}];
-var arrOb = [...arr3, ...arr4];
-// 操作对象不会影响
-arrOb[0] = 0;  // arr3: [{name: 'A', age: '10'}, {name: 'B', age: '20'}];
-// 操作对象的元素会影响
-arrOb[0].name = 'F'; // arr3: [{name: 'F', age: '10'}, {name: 'B', age: '20'}];
+var a3 = deepClone(a3); // 深拷贝方法
+a3.b.c === a1.b.c // false 新对象跟原对象不共享内存
 ```
 
-`深拷贝`：拷贝开销大，拷贝完之后双方不会相互影响。
+`赋值`：赋值、深拷贝、浅拷贝针对基本类型的时候，效果都是一样的，改变基本类型彼此不会影响；如果针对的是引用类型，当我们把一个对象赋值给一个新的变量时，**赋的其实是该对象的在栈中的地址，而不是堆中的数据**。也就是两个对象指向的是同一个存储空间，无论哪个对象发生改变，其实都是改变的存储空间的内容，因此，两个对象是联动的。可以看下面的例子：
+
+=> `赋值`：引用类型赋值，无论内部是什么数据，都会相互影响。
+
+=> `浅拷贝`： 引用类型浅拷贝，内部的基本类型不会相互影响，引用类型会相互影响。
+
+=> `深拷贝`：引用类型深拷贝，内部基本类型、引用类型都不会互相影响。
+
+```js
+let obj1 = {name: 'init', arr: [1, [2,3], 4]};
+let obj2 = obj1;
+obj2.name = 'update';
+obj2.arr[1] = [5,6];
+>>> obj1: {name: 'update', arr: [1, [5,6], 4]}
+>>> obj2: {name: 'update', arr: [1, [5,6], 4]}
+let obj3 = shallowClone(obj1); //采用浅拷贝
+obj3.name = '';
+obj3.arr[1] = [7,8];
+```
+
+​	
+
+#### 4.1 浅拷贝实现
+
+```js
+// 1.展开运算符 ...
+arr1 = [... arr];
+dic1 = {... dic};
+// 2.assign
+
+```
+
+
 
 ```js
 // 使用slice可以深拷贝
@@ -174,6 +204,10 @@ arr1 = [1, 2, 3 ,4];
 arr = arr1.slice(0,4); //arr: [1, 2, 3, 4]
 ```
 
-### 
+#### 4.2 深拷贝实现
 
-<img src="/Users/samstephen/Library/Application Support/typora-user-images/image-20210107134128940.png" alt="image-20210107134128940" style="zoom:50%;" align="left"/>
+```js
+arr = [1, [2, 3]];
+arr1 = JSON.parse(JSON.stringify(arr));
+```
+
