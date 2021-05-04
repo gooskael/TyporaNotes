@@ -193,10 +193,9 @@ obj3.arr[1] = [7,8];
 arr1 = [... arr];
 dic1 = {... dic};
 // 2.assign
-
+let obj1 = {···};
+let obj2 = Object.assign({}, obj1);
 ```
-
-
 
 ```js
 // 使用slice可以深拷贝
@@ -211,3 +210,12 @@ arr = [1, [2, 3]];
 arr1 = JSON.parse(JSON.stringify(arr));
 ```
 
+****
+
+### 5. Promise
+
+pending：
+
+fulfilled（resolve）：.then()
+
+rejected（reject）：.catch()
