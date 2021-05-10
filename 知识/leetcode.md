@@ -52,9 +52,36 @@ let arr = [1, 2, 3, 4];
 arr.join('-'); // 1-2-3-4
 ```
 
+### 7 `arr.slice()`
+
+```js
+let arr = [11, 22, 33, 44, 55];
+console.log(arr.slice(0,3)) // [11, 22, 33]
+```
+
+### 8 `arr.reverse()`
+
+```js
+let arr = [1, 2, 3];
+arr.reverse(); // [3, 2, 1]
+```
+
 ****
 
-## 2. Math
+## 2. String
+
+### 1 JSON.stringify()
+
+```js
+let arr = [1, 2, 3];
+let str = JSON.stringify(arr);
+```
+
+****
+
+
+
+## 3. Math
 
 ### 1 `Math.floor` & `Math.ceil`
 
@@ -84,11 +111,22 @@ let aNum = Math.pow(2, -31); // 2的-31次方
 
 ****
 
-## 3. Map
+## 4. Map
 
 ​	参考：[map](https://www.cnblogs.com/yuer20180726/p/11387699.html)。
 
-​	由`have`、`set`、`get`
+​	有`has`、`set`、`get`、`keys`。
+
+### Map.keys
+
+```js
+// 获取所有keys
+let map = new Map();
+// ···进行了一系列操作
+const keysArr = [...map.keys()].sort((a,b) => a-b);
+```
+
+
 
 ### Q: Java - hashmap hashset
 
@@ -118,6 +156,7 @@ for(let item of mapItem) {
 map.get('key1');
 map.has('key1');
 map.set('key', 'value');
+map.keys(); // 返回包含所有key的iterator
 ```
 
 ## problems pending
