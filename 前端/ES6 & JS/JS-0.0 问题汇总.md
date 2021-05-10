@@ -208,7 +208,7 @@
 - [x] `==`是更加宽松的判断，比如`0 == ''`、`false == 0`返回都是true
 - [x] `===`是十分严格的判断，必须完全一致才会返回true
 
-### 何时可巧妙使用`==`？
+#### 何时可巧妙使用`==`？
 
 ​	一般情况下最好使用`===`，但有时候可以使用宽松的判断。比如表示个数的时候，有可能以`'1'`的方式存放，有可能以`1`的方式存放；比如对一个空字符串判定的时候，`null`、`undefined`都可能；一种办法是严格规定类型并使用`===`，比如：
 
@@ -227,3 +227,32 @@ if(amount === 1) {
 if(amount == 1) //(amount === '1' || amount === 1)
 if(str == null) //(str === null || str === 'undefined')
 ```
+
+****
+
+### 5. forEach 和 map的区别
+
+参考：[JS中Map和ForEach的区别](https://blog.csdn.net/qq_39207948/article/details/80357569)。
+
+- [x] 相同点：forEach和map都能遍历数组元素，对每个数组元素进行规定的function操作。二者对原数组都不会进行修改（除非你在function中直接对数组进行了操作）。
+- [x] 不同点：forEach不接收返回结果；map接收返回结果，并且map返回的是一个新数组。
+
+```js
+let arr = [1, 2, 3];
+let arr2 = arr.map((value, index) => {
+  return value*2
+})
+
+arr // [1, 2, 3]
+arr2 // [2, 4, 6]
+
+// forEach不返回结果，如果要实现上述：
+arr.forEach((value, index) => {
+  arr[index] = value * 2;
+})
+```
+
+​	一般来说，如果只需要读数组的数据，就可以使用forEach；如果需要读完之后进行操作，使用map，因为有`return`并且返回的新数组。
+
+****
+
