@@ -313,3 +313,7 @@ $ git config --global --unset https.https://github.com.proxy
 
 ****
 
+### 5. `.gitignore`
+
+参考：[详解Github的.gitignore忽略文件+.gitignore不生效解决方案+生产配置大奉送](https://blog.csdn.net/u010566681/article/details/53183146)。
+
