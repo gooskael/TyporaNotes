@@ -79,13 +79,22 @@ let str = JSON.stringify(arr);
 
 ****
 
+### 2. str.repeat(time)
+
+```js
+result = '';
+result += 'hey'.repeat(3); // heyheyhey
+```
+
+****
+
 
 
 ## 3. Math
 
-### 1 `Math.floor` & `Math.ceil`
+### 1 `Math.floor` & `Math.ceil` & `Math.around`
 
-​	向下取整和向上取整
+​	向下取整和向上取整、四舍五入
 
 ### 2 `Math.max` & `Math.min`
 
