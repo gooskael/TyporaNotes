@@ -66,6 +66,16 @@ let arr = [1, 2, 3];
 arr.reverse(); // [3, 2, 1]
 ```
 
+### 9 `arr.map` & `forEach`
+
+​	都不会改变原数组。
+
+```js
+arr.map((value, index, arr) => {
+  
+})
+```
+
 ****
 
 ## 2. String
@@ -79,7 +89,7 @@ let str = JSON.stringify(arr);
 
 ****
 
-### 2. str.repeat(time)
+### 2 str.repeat(time)
 
 ```js
 result = '';
@@ -88,7 +98,13 @@ result += 'hey'.repeat(3); // heyheyhey
 
 ****
 
+### 3 str.localeCompare()
 
+```js
+// 比较字符串
+let str1 = 'string';
+let str2 = 'strinh';
+str1.localeCompare(str2); // -1
 
 ## 3. Math
 
