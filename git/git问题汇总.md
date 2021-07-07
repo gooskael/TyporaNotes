@@ -317,3 +317,29 @@ $ git config --global --unset https.https://github.com.proxy
 
 参考：[详解Github的.gitignore忽略文件+.gitignore不生效解决方案+生产配置大奉送](https://blog.csdn.net/u010566681/article/details/53183146)。
 
+
+
+
+
+
+
+
+
+[git创建分支](https://blog.csdn.net/torpidcat/article/details/81252505)
+
+[git创建分支](https://www.cnblogs.com/Byme/p/10596401.html)
+
+```shell
+$ git branch new_branch // 添加本地新分支
+$ git checkout new_branch // 切换到新分支
+$ git push -u origin new_branch:new_branch // 创建远程新分支并关联
+```
+
+
+
+git合并
+
+```shell
+$ git merge branch_from
+```
+
