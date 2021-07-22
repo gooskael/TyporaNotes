@@ -317,17 +317,11 @@ $ git config --global --unset https.https://github.com.proxy
 
 参考：[详解Github的.gitignore忽略文件+.gitignore不生效解决方案+生产配置大奉送](https://blog.csdn.net/u010566681/article/details/53183146)。
 
+****
 
+### 6. 创建分支 & 合并
 
-
-
-
-
-
-
-[git创建分支](https://blog.csdn.net/torpidcat/article/details/81252505)
-
-[git创建分支](https://www.cnblogs.com/Byme/p/10596401.html)
+参考：[git创建分支](https://blog.csdn.net/torpidcat/article/details/81252505)、[git创建分支](https://www.cnblogs.com/Byme/p/10596401.html)。
 
 ```shell
 $ git branch new_branch // 添加本地新分支
@@ -335,11 +329,49 @@ $ git checkout new_branch // 切换到新分支
 $ git push -u origin new_branch:new_branch // 创建远程新分支并关联
 ```
 
-
-
 git合并
 
 ```shell
 $ git merge branch_from
+```
+
+****
+
+### 7. git snapshot
+
+参考：[Git快照到底该如何理解？](https://www.h5w3.com/82381.html)。
+
+> 1.当保存一个文件的时候，git 把这个文件的信息和这个文件的内容存储在一个文件里，然后求得这个文件的 sha1 作为文件名(sha1的前两位/sha1剩余部分,见`.git/objects`)。
+>
+> 2.保存一个目录，就是把目录信息，以及其中文件通过上述方式求得的 sha1 保存在一个文件里，同样求得这个文件的sha1 作为文件名。
+>
+> 3.一个提交就是，把提交的信息(比如父提交的sha1等)，以及此次提交所包含的目录/文件的上述方式求得的 sha1 放在一个文件里，然后把其 sha1 作为文件名。
+>
+> 4.当提取某次提交的时候，需要给出某次提交的 sha1 然后 git 就可以通过sha1 找到这个保存这个提交所在的文件，然后这个文件里有其所有包含文件的 sha1 ，然后就可以找到所有文件。
+
+> 快照相对于一个文件来说就是在硬盘里把这一块内存锁住，后续的人不能再动这一块空间了，需要用的时候把这一块拿出来就行了，所以当一个文件A被修改时，理论上不是动了这个文件本身，而是生成了一个文件A1，A1和A又构成了一个空间，把这个空间再次锁住，也就是第二个快照，以此类推。
+>
+> 所以Gitpro里面说“Git Generally Only Adds Data”
+
+```js
+----------
+在創建Version 1時:
+
+計算A B C的sha1, 然後在.git/object中, 創建以下文件 (即"快照")
+- 文件名 sha1(A), 內容A
+- 文件名 sha1(B), 內容B
+- 文件名 sha1(C), 內容C
+
+最後把這幾個sha1寫到一個新文件, 這個新文件就是Version 1.
+----------
+在創建Version 2時
+
+計算A1 B C1的sha1, 然後發現sha1(B)這個文件名已經有了, 所以只需要再創建兩個文件:
+- 文件名 sha1(A1), 內容A1
+- 文件名 sha1(C1), 內容C1
+
+最後把A1 B C1的sha1寫到新文件, 這個新文件就是Version 2
+----------
+以下略
 ```
 
