@@ -335,6 +335,14 @@ git合并
 $ git merge branch_from
 ```
 
+#### refusing to merge unrelated histories
+
+```shell
+$ git merge branch_from --allow-unrelated-histories
+```
+
+
+
 ****
 
 ### 7. git snapshot
@@ -375,3 +383,10 @@ $ git merge branch_from
 以下略
 ```
 
+
+
+
+
+https://fast.losadhwselfff2332dasd.xyz/link/M3006tVjggFUKJZK?clash=1
+
+Clash_1619966394
