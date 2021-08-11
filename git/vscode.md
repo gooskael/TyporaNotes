@@ -80,6 +80,12 @@
 }
 ```
 
+#### 跳转：`CSS Peek`
+
+​	可以在元素的类名上预览样式具体内容。
+
+****
+
 #### Theme： `Atom one dark Theme` or `Oceanic next`
 
 ​	个人比较偏好`Oceanic next`

@@ -68,7 +68,7 @@ arr.reverse(); // [3, 2, 1]
 
 ### 9 `arr.map` & `forEach`
 
-​	都不会改变原数组。
+​	都不会改变原数组。参考：[forEach 和 map 和 for方法的区别](https://www.cnblogs.com/chaoyuehedy/p/6905422.html)。
 
 ```js
 arr.map((value, index, arr) => {
