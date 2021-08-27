@@ -1,6 +1,6 @@
 [TOC]
 
-### 0. git初始化项目以及仓库
+## 0. git初始化项目以及仓库
 
 [git连接gitlab远程仓库](https://blog.csdn.net/lkt_anhua/article/details/78835226)：以gitlab为例子。
 
@@ -29,7 +29,7 @@ ssh -T git@gitlab.com
 
 ****
 
-### 1. 查看git的用户、密码及修改操作
+## 1. 查看git的用户、密码及修改操作
 
 [查看git的用户名和密码](https://www.cnblogs.com/xihailong/p/13354628.html)
 
@@ -49,7 +49,7 @@ $ git config --global --replace-all user.password 'newPwd'
 
 ****
 
-### 2. ssh以及测试git clone
+## 2. ssh以及测试git clone
 
 [git删除持久化存储的账号密码.git-credentials](https://www.cnblogs.com/maopixin/p/12054614.html)
 
@@ -180,7 +180,7 @@ $ git clone http://abc%40qq.com:test@git@xxx.com/test.git
 
 ****
 
-### 3. Git push
+## 3. Git push
 
 ```shell
 $ git push origin
@@ -279,16 +279,14 @@ $ git push -u origin master
 
 ****
 
-### 4. Git失败情况及解决方案
+## 4. Git失败情况及解决方案
 
-#### 4.1 vscode 无权限push
+### 4.1 vscode 无权限push
 
 - [x] 问题出现：在终端上git clone了代码，在vscode上push的时候无权限，即`denied`。
 - [x] 解决方式：在vscode打开终端，在终端中直接使用`git push`，但是每次都要输入密码。
 
-****
-
-#### 4.2 fatal: the remote end hung up unexpectedly
+### 4.2 fatal: the remote end hung up unexpectedly
 
 - [x] 问题报错：error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: CANCEL (err 8)
 - [x] 解决方案：增加缓存空间（亲测可用） 或 更改为ssh地址（未测试过）。参考[fatal](https://blog.csdn.net/qq_34466755/article/details/113748527)。
@@ -299,9 +297,7 @@ $ git config --global http.postBuffer 524288000
 $ git push
 ```
 
-****
-
-#### 4.3 SSL 443报错
+### 4.3 SSL 443报错
 
 - [x] 问题报错：Failed to connect to github.com port 443
 - [x] 解决方案：取消代理。一般是翻墙克隆下来会出现的问题。
@@ -313,13 +309,13 @@ $ git config --global --unset https.https://github.com.proxy
 
 ****
 
-### 5. `.gitignore`
+## 5. `.gitignore`
 
 参考：[详解Github的.gitignore忽略文件+.gitignore不生效解决方案+生产配置大奉送](https://blog.csdn.net/u010566681/article/details/53183146)。
 
 ****
 
-### 6. 创建分支 & 合并
+## 6. 创建分支 & 合并
 
 参考：[git创建分支](https://blog.csdn.net/torpidcat/article/details/81252505)、[git创建分支](https://www.cnblogs.com/Byme/p/10596401.html)。
 
@@ -341,11 +337,9 @@ $ git merge branch_from
 $ git merge branch_from --allow-unrelated-histories
 ```
 
-
-
 ****
 
-### 7. git snapshot
+## 7. git snapshot
 
 参考：[Git快照到底该如何理解？](https://www.h5w3.com/82381.html)。
 
@@ -383,10 +377,62 @@ $ git merge branch_from --allow-unrelated-histories
 以下略
 ```
 
+****
+
+## 8. git reset 回退代码
+
+参考：[git reset soft, hard, mixed 之区别深解](https://www.cnblogs.com/kidsitcn/p/4513297.html)。
+
+> `HEAD` ：指向当前分支版本顶端，也就是在当前分支最近的一次提交。
+>
+> `index `：也被称为staging area，是指一整套即将被下一个提交的文件集合。它也是即将成为目前HEAD的父亲的那个commit。
+>
+> `working copy` ：正在工作的那个文件集。
+
+​	三者的状态改变：
+
+1. `checkout` 到某一特定分支的时候，`HEAD` 指向该分支的最近一次commit，这时候 `HEAD` 、`working copy` 、`index` 中的文件集完全一致。
+2. 对文件进行修改的时候，`working copy` 变更，不再和 `index` 及 `HEAD` 一致。
+3. 对文件进行 `add` 操作变成 `staged` 时，`index` 变更，和 `working copy` 保持一致，只有 `HEAD` 仍保持最初 `checkout` 的状态，指向最新一次 commit 。
+4. 对文件执行 `commit` 操作，git 创建一个新的 commit ，`HEAD` 变更，指向该最新的 commit ，这时三者的状态就又完全一致了。
+
+```shell
+$ git reset --soft|hard
+```
+
+​	在理解三种模式的时候，需要关注的地方改动有三个地方：
+
+1. 改动过的文件 changes 栏
+2. 已经保存的更改但未提交的 staged 栏
+
+3. 已经提交的 commit 栏（这里有仅本地提交和已远程提交的两种）
+
+```shell
+$ git reset --soft remoteCommitA
+1. changes 栏不动
+2. staged 栏的文件保留, remoteCommitA 之后的所有改动（包括本地和远程）都和 staged 栏的文件进行 merge, 然后全部保留在 staged 栏里
+3. commit 栏最新的 commit 变成 remoreCommitA, 本地的所有 commit 撤回（撤回的意思是, 这些 commit 的文件内容已经放在 staged 里面了）, 可以继续 reset 到远程已保存的 commit
+```
+
+```shell
+$ git reset --hard remoteCommitA
+1. changes 栏所有更改删除, 彻底无法找回
+2. staged 栏的文件所有更改删除, 彻底无法找回
+3. commit 栏最新的 commit 变成 remoreCommitA, 本地的所有 commit 全部删除（删除的意思是，所有更改都废弃, 可以通过git reflog找回）, 可以继续 reset 到远程已保存的 commit
+```
+
+```shell
+// default值, --mixed
+$ git reset remoteCommitA
+1. changes 栏原本文件不动, remoteCommitA 之后的所有改动（包括本地和远程）、staged 栏的所有文件改动, 三者 merge, 作为新的 changes 栏内容
+2. staged 栏的所有文件放回 changes 栏
+3. commit 栏最新的 commit 变成 remoreCommitA, 本地的所有 commit 撤回（撤回的意思是, 这些 commit 的文件内容已经放在 changes 里面了）, 可以继续 reset 到远程已保存的 commit
+```
+
+​	详细例子：
+
+<img src="/Users/samstephen/Library/Mobile Documents/com~apple~CloudDocs/TyporaNotes/git/images/reset.png" style="zoom:50%;" />
+
+<img src="/Users/samstephen/Library/Mobile Documents/com~apple~CloudDocs/TyporaNotes/git/images/hard-reset.png" style="zoom:50%;" />
 
 
-
-
-https://fast.losadhwselfff2332dasd.xyz/link/M3006tVjggFUKJZK?clash=1
-
-Clash_1619966394
